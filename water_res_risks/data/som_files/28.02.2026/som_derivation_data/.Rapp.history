@@ -1,0 +1,2 @@
+load("/Users/petrvesnovskii/My Drive/R/watershed/water_res_risks/data/som_files/som_derivation_data/00_full_SOM_iteration_sizing_index.rds")
+load("/Users/petrvesnovskii/My Drive/R/watershed/water_res_risks/data/som_files/som_derivation_data/00_synthetic_SOM_iteration_sizing_index.rds")
