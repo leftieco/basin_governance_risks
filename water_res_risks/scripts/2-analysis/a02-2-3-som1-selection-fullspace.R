@@ -39,8 +39,15 @@ for (i in unique(df$som_size)) {
 }
 
 df_keep = df_keep[2:nrow(df_keep),]
-nrow(df_keep) # 38 kept out of 60 #28.02.2026
-#28 kept out of 60 11.03.2026
+nrow(df_keep) #37 kept out of 60 #1.4.2026
+# 60 kept out of 60 31.03.2026
+# 60 kept out of 60 30.03.2026
+# 38 kept out of 60 28.02.2026
+# 28 kept out of 60 11.03.2026
+
+nrow(df)
+unique(df$som_size)
+df |> count(som_size)
 
 
 ##
@@ -74,7 +81,10 @@ for (i in unique(df_keep$som_size)) {
 }
 
 df_keepcomb = df_keepcomb[2:nrow(df_keepcomb),]
-nrow(df_keepcomb) # 29 kept out of 60 #28.02.2026
+nrow(df_keepcomb) #28 kept out of 60 1.4.2026
+# 42 kept out of 60 #31.03.2026
+# 42 kept out of 60 #30.03.2026
+# 29 kept out of 60 #28.02.2026
 #22 kept out of 60 11.03.2026
 
 ##
@@ -91,57 +101,7 @@ winning_size # this is best-performing SOM from first-stage
 ### We can observe that the best performing first-stage SOM is:
 som_size = 36
 # som_iter = 4 #28.02.2026
-som_iter = 43 #11.03.2026
-
-# library(dplyr)
-# library(readr)
-# library(here)
-# 
-# df = readr::read_rds(here("som_FULLspace_performance_combined.rds"))
-# 
-# ## ------------------- Filter stage 1: remove outliers of individual metrics (db_x and k_l)
-# 
-# global_mad_db <- mad(df$db_x, na.rm = TRUE)
-# global_mad_kl <- mad(df$k_l, na.rm = TRUE)
-# 
-# range_db <- global_mad_db
-# range_kl <- global_mad_kl
-# 
-# df_keep <- df %>%
-#   filter(
-#     between(db_x, median(db_x, na.rm = TRUE) - range_db,
-#             median(db_x, na.rm = TRUE) + range_db),
-#     between(k_l,  median(k_l, na.rm = TRUE)  - range_kl,
-#             median(k_l, na.rm = TRUE)  + range_kl)
-#   )
-# 
-# ## ------------------- Filter stage 2: remove outliers of combined metric
-# 
-# # Rescale
-# dbi_scaled <- (df_keep$db_x - min(df_keep$db_x)) / (max(df_keep$db_x) - min(df_keep$db_x))
-# kl_scaled  <- (df_keep$k_l  - min(df_keep$k_l))  / (max(df_keep$k_l)  - min(df_keep$k_l))
-# 
-# df_keep <- df_keep %>%
-#   mutate(
-#     dbi_scaled = dbi_scaled,
-#     kl_scaled = kl_scaled,
-#     perf = (dbi_scaled + kl_scaled) / 2
-#   )
-# 
-# global_mad_perf <- mad(df_keep$perf, na.rm = TRUE)
-# 
-# df_keepcomb <- df_keep %>%
-#   filter(
-#     between(perf, median(perf, na.rm = TRUE) - global_mad_perf,
-#             median(perf, na.rm = TRUE) + global_mad_perf)
-#   )
-# 
-# ## ------------------- Select best iteration
-# 
-# rowno <- which.min(df_keepcomb$perf)
-# winning_model <- df_keepcomb[rowno, ]
-# 
-# print(winning_model)
-# 
-# # Save selected model info
-# write_rds(winning_model, here("data/best_som1_full_model.rds"))
+# som_iter = 43 #11.03.2026
+# som_iter = 60 #30.03.2026
+# som_iter = 60 #31.03.2026
+som_iter = 14 #1.04.2026

@@ -166,17 +166,28 @@ table(sensitivity_df$size) |> sort(decreasing = TRUE)
 # 24   5  15  25 #11.03.2026
 # 270 131  26  14 
 
-win_size = 24
+# 24  #30, 31.03.2026
+# 441 
+
+#  15  22   5 #01.04.2026
+# 211 136  94   
 
 
-df_size11 <- df[df$som_size == 24, ]
-best_iter <- df_size11[which.min(df_size11$db_x), "iter"]
+win_size = 15
+
+
+df_size <- df |> 
+  dplyr::filter(som_size == win_size)
+best_iter <- df_size[which.min(df_size$db_x), "iter"]
 print(best_iter)
 
-win_iter = 118  #11.03.2026
+win_iter = 96  #01.04.2026
+# win_iter = 75  #31.03.2026
+# win_iter = 69  #30.03.2026
 # selected from winning models as hierarchical clusters group nicely for narrative development
 # for win_size = 4, win_iter = 53 28.02.2026
 # for win_size =24, win_iter = 6 06.03.2026
+# for win_size =24, win_iter = 118 14.03.2026
 
 
 file.copy(from = paste0(here("data/som_files/som2_files/som2_nclust_"),
@@ -318,6 +329,7 @@ ggsave(plot = last_plot(),
        width = 18,
        units = "cm",
        dpi = 400)
+
 
 ## tighter range - more stable model, less sensitive to initialisation
 ## lower values - better best-case performance

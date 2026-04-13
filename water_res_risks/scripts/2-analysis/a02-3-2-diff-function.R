@@ -10,25 +10,43 @@ library(clusterSim)
 
 # import the prototype data, and estimate the number of cluster centers
 # prototypes = readr::read_rds(here("data/som_files/som_files_full/som1_nrc_36_iter_4.rds")) #28.02.2026
-prototypes = readr::read_rds(here("data/som_files/som_files_full/som1_nrc_36_iter_43.rds")) #11.03.2026
+# prototypes = readr::read_rds(here("data/som_files/som_files_full/som1_nrc_36_iter_43.rds")) #11.03.2026
+# prototypes = readr::read_rds(here("data/som_files/som_files_full/som1_nrc_36_iter_60.rds")) #30.03.2026
+# prototypes = readr::read_rds(here("data/som_files/som_files_full/som1_nrc_36_iter_60.rds")) #31.03.2026
+prototypes = readr::read_rds(here("data/som_files/som_files_full/som1_nrc_36_iter_14.rds")) #01.04.2026
+ 
+prototypes <- readr::read_rds(
+  here::here(
+    "data/som_files/som_files_full",
+    paste0("som1_nrc_", som_size, "_iter_", som_iter, ".rds")
+  )
+)
 
 prototypes = prototypes$codes[[1]] |> as_tibble()
 
 
 clut_apriori = NbClust(data = prototypes, 
-                      min.nc = 2, max.nc = 30, 
+                      min.nc = 2, max.nc = 30,  
                       method = "ward.D2", 
                       index = "all")
 
 # weighted mean of all clustering suggestions
-apriori_df = clut_apriori$Best.nc |> as_tibble() |> t() |> set_colnames(c('nc', 'value')) |> as.data.frame()
-apriori_df = apriori_df$nc |> unlist() |> as.vector() |> as.numeric() |> table() |> as.data.frame() |> set_colnames(c('best_nc', 'freq')) 
+apriori_df = clut_apriori$Best.nc |> as_tibble() |> t() |> as.data.frame()
+colnames(apriori_df) <- c("nc", "value")
+
+apriori_df = apriori_df$nc |> unlist() |> as.vector() |> as.numeric() |> table() |> as.data.frame()
+colnames(apriori_df) <- c("best_nc", "freq")
+
 apriori_df$best_nc = apriori_df$best_nc |> as.character() |> as.numeric()
 apriori_df$freq = apriori_df$freq |> as.character() |> as.numeric()
 
 best_nc = trunc(median(apriori_df$best_nc)[1])
 #> 3
-best_nc = 4
+# best_nc = 3 #28.02.2026
+# best_nc = 4 #11.03.2026
+# best_nc = 5 #30.03.2026
+# best_nc = 5 #31.03.2026
+best_nc = 4 #01.04.2026
 
 # Import performance metrics of each SOM2 architecture size
 df = list.files(here("data/som_files/som2_performance/"), pattern = ".rds", full.names = T) |> 

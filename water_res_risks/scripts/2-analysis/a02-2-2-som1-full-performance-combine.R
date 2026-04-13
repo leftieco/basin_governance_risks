@@ -3,6 +3,9 @@
 # On same compute cluster, merge SOM model results into a single data frame
 ### ---------------------\\ 
 
+library(here)
+setwd(here::here())
+
 library(readr)
 library(tibble)
 library(purrr)

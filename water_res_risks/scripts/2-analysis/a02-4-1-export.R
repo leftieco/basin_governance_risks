@@ -27,7 +27,7 @@ if (!("HYBAS_ID" %in% names(v_df))) {
 # 2) Load training input + SOM models
 # -----------------------
 input_data <- readr::read_rds(here("data/input/02_full_input_data_norm.rds"))
-som1_model <- readr::read_rds(here("data/som_files/som_files_full/som1_nrc_36_iter_4.rds"))
+som1_model <- readr::read_rds(here("data/som_files/som_files_full/som1_nrc_36_iter_60.rds"))
 som2_model <- readr::read_rds(here("data/som_files/som_selection/som2_selection.rds"))
 
 # -----------------------

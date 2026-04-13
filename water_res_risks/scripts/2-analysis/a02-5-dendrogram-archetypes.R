@@ -2,7 +2,9 @@
 # Dendrogram and agglomerative clustering of 24 archetypes
 
 library(here)
+
 ###
+
 
 # average linkage merges clusters based on the mean distance between all pairs.
 # complete linkage merges based on the maximum distance between clusters.
@@ -20,7 +22,7 @@ agn_hclust = as.hclust(agn)
 
 pdf_size = 3.5
 pdf(here("plots/dendrogram_archetypes.pdf"), width=2*pdf_size, height=pdf_size)
-
+dev.new()
 ### Choose amount of groupings ###
 plot(agn_hclust, hang = -1, lwd = 2, bg=NA)
 rect.hclust(agn_hclust, k = 5, border = 2:5)
@@ -52,7 +54,7 @@ archetype_clusters
 
 # Combine archetype table + cluster labels
 archetype_clusters <- tibble(
-  archetypeID = 1:24,
+  archetypeID = 1:15,
   cluster5 = clusters5
 )
 
@@ -63,7 +65,7 @@ write.csv(
   row.names = FALSE
 )
 
-# Load your watershed polygons (182k rows)
+# Load  watershed polygons
 watersheds <- terra::vect(here::here("data/output/water_res_risks_archetypes.gpkg"))
 
 # Merge by archetypeID

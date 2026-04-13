@@ -9,7 +9,17 @@ library(glue)
 ## --------------------------- \
 # import best-performing first-stage SOM and extract codebook vectors
 # prototypes = readr::read_rds(here("data/som_files/som_files_full/som1_nrc_36_iter_4.rds")) #28.02.2026
-prototypes = readr::read_rds(here("data/som_files/som_files_full/som1_nrc_36_iter_43.rds")) #11.03.2026
+# prototypes = readr::read_rds(here("data/som_files/som_files_full/som1_nrc_36_iter_43.rds")) #11.03.2026
+# prototypes = readr::read_rds(here("data/som_files/som_files_full/som1_nrc_36_iter_60.rds")) #30.03.2026
+# prototypes = readr::read_rds(here("data/som_files/som_files_full/som1_nrc_36_iter_14.rds")) #1.4.2026
+
+prototypes <- readr::read_rds(
+  here::here(
+    "data/som_files/som_files_full",
+    paste0("som1_nrc_", som_size, "_iter_", som_iter, ".rds")
+  )
+)
+
 prototypes = prototypes$codes[[1]] |> as.data.frame()
 
 # set range of second-stage SOM following range suggested by Eisenack et al. 2021
